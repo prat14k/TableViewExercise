@@ -58,7 +58,7 @@ extension ViewController {
 // IBActions
 extension ViewController {
     
-    @IBAction func editCells(_ sender: UIBarButtonItem) {
+    @IBAction func reorderCells(_ sender: UIBarButtonItem) {
         
         isReorderingEnabled = !tableView.isEditing
 
@@ -142,18 +142,6 @@ extension ViewController: UITableViewDelegate {
         return 300
     }
  
-    func indexPathsForRange(a: Int, b: Int) -> [IndexPath] {
-        var indexPaths = [IndexPath]()
-        
-        let upperBound = max(a, b)
-        let lowerBound = min(a, b)
-        
-        for index in lowerBound...upperBound {
-            indexPaths.append(IndexPath(row: index, section: 0))
-        }
-        return indexPaths
-    }
-    
 }
 
 // pragma - To Select/Edit/Move TableView Cells
@@ -170,7 +158,7 @@ extension ViewController {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         tableDataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
         
-        let reloadingIndexPaths = indexPathsForRange(a: sourceIndexPath.row, b: destinationIndexPath.row)
+        let reloadingIndexPaths = IndexPath.createFromRange(a: sourceIndexPath.row, b: destinationIndexPath.row)
         DispatchQueue.main.async {
             tableView.reloadRows(at: reloadingIndexPaths, with: .none)
         }
