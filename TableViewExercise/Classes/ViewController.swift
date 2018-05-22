@@ -105,6 +105,7 @@ extension ViewController {
         tableView.deleteRows(at: selectedRows, with: .fade)
         
         selectedRows.removeAll()
+        tableView.reloadData()
     }
     
 }
@@ -140,6 +141,18 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 300
     }
+ 
+    func indexPathsForRange(a: Int, b: Int) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
+        
+        let upperBound = max(a, b)
+        let lowerBound = min(a, b)
+        
+        for index in lowerBound...upperBound {
+            indexPaths.append(IndexPath(row: index, section: 0))
+        }
+        return indexPaths
+    }
     
 }
 
@@ -156,7 +169,13 @@ extension ViewController {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         tableDataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
+        
+        let reloadingIndexPaths = indexPathsForRange(a: sourceIndexPath.row, b: destinationIndexPath.row)
+        DispatchQueue.main.async {
+            tableView.reloadRows(at: reloadingIndexPaths, with: .none)
+        }
     }
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

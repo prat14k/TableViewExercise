@@ -65,7 +65,7 @@
 				AB8BD23E20B3E7E3001737F7 /* AppDelegate.swift */,
 				AB8BD24520B3E7E4001737F7 /* Assets.xcassets */,
 				AB8BD24A20B3E7E4001737F7 /* Info.plist */,
-				AB8BD25B20B42AFC001737F7 /* Controllers */,
+				AB8BD25B20B42AFC001737F7 /* Classes */,
 				AB8BD25A20B42AE9001737F7 /* View */,
 				AB8BD25920B42ADF001737F7 /* Constants */,
 				AB8BD25820B42ACD001737F7 /* Extensions */,
@@ -99,13 +99,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		AB8BD25B20B42AFC001737F7 /* Controllers */ = {
+		AB8BD25B20B42AFC001737F7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				AB8BD24020B3E7E3001737F7 /* ViewController.swift */,
 				AB8BD25020B3ECCE001737F7 /* CustomTableViewCell.swift */,
 			);
-			path = Controllers;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
