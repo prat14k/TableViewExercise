@@ -58,7 +58,7 @@ extension ViewController {
 // IBActions
 extension ViewController {
     
-    @IBAction func editCells(_ sender: UIBarButtonItem) {
+    @IBAction func reorderCells(_ sender: UIBarButtonItem) {
         
         isReorderingEnabled = !tableView.isEditing
 
