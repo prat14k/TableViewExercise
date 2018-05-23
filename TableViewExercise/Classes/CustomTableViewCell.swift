@@ -10,8 +10,10 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var backgroundImageView: UIImageView!
+    static let identifier = "customCellIdentifier"
+    
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var backgroundImageView: UIImageView!
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {

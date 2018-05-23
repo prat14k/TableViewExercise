@@ -15,7 +15,6 @@
 		AB8BD25120B3ECCE001737F7 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BD25020B3ECCE001737F7 /* CustomTableViewCell.swift */; };
 		AB8BD25320B3EEFF001737F7 /* ImageAssetNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BD25220B3EEFF001737F7 /* ImageAssetNames.swift */; };
 		AB8BD25520B3FF16001737F7 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BD25420B3FF16001737F7 /* ArrayExtension.swift */; };
-		AB8BD25720B42155001737F7 /* BarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BD25620B42155001737F7 /* BarButtonExtension.swift */; };
 		ABE1B11720B52B9200FFAFE2 /* IndexPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1B11620B52B9200FFAFE2 /* IndexPathExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +29,6 @@
 		AB8BD25020B3ECCE001737F7 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		AB8BD25220B3EEFF001737F7 /* ImageAssetNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssetNames.swift; sourceTree = "<group>"; };
 		AB8BD25420B3FF16001737F7 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
-		AB8BD25620B42155001737F7 /* BarButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonExtension.swift; sourceTree = "<group>"; };
 		ABE1B11620B52B9200FFAFE2 /* IndexPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPathExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				AB8BD25420B3FF16001737F7 /* ArrayExtension.swift */,
-				AB8BD25620B42155001737F7 /* BarButtonExtension.swift */,
 				ABE1B11620B52B9200FFAFE2 /* IndexPathExtension.swift */,
 			);
 			path = Extensions;
@@ -185,7 +182,6 @@
 				AB8BD25520B3FF16001737F7 /* ArrayExtension.swift in Sources */,
 				AB8BD25120B3ECCE001737F7 /* CustomTableViewCell.swift in Sources */,
 				AB8BD24120B3E7E3001737F7 /* ViewController.swift in Sources */,
-				AB8BD25720B42155001737F7 /* BarButtonExtension.swift in Sources */,
 				ABE1B11720B52B9200FFAFE2 /* IndexPathExtension.swift in Sources */,
 				AB8BD23F20B3E7E3001737F7 /* AppDelegate.swift in Sources */,
 				AB8BD25320B3EEFF001737F7 /* ImageAssetNames.swift in Sources */,

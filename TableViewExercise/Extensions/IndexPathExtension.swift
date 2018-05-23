@@ -11,13 +11,12 @@ import UIKit
 
 extension IndexPath {
     
-    static func createFromRange(a: Int, b: Int) -> [IndexPath] {
+    static func createForNumbers(from start: Int, to end: Int) -> [IndexPath] {
         var indexPaths = [IndexPath]()
         
-        let upperBound = Swift.max(a, b)
-        let lowerBound = Swift.min(a, b)
+        let loopStep = start <= end ? 1 : -1
         
-        for index in lowerBound...upperBound {
+        for index in stride(from: start, through: end, by: loopStep) {
             indexPaths.append(IndexPath(row: index, section: 0))
         }
         return indexPaths

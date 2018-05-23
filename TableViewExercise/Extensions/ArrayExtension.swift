@@ -15,15 +15,6 @@ extension Array {
         insert(item, at: destination)
     }
 
-}
-
-extension Array where Element: Equatable {
-    
-    mutating func delete(element: Element) -> Element? {
-        guard let index = self.index(of: element)  else { return nil }
-        return self.remove(at: index)
-    }
-    
     mutating func remove(indexes: [Int]) {
         
         guard count > 0  else { return }
@@ -36,6 +27,15 @@ extension Array where Element: Equatable {
         }
         
         self = newArray
+    }
+    
+}
+
+extension Array where Element: Equatable {
+    
+    mutating func delete(element: Element) -> Element? {
+        guard let index = self.index(of: element)  else { return nil }
+        return self.remove(at: index)
     }
     
 }

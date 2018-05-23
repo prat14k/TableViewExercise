@@ -69,13 +69,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="md8-Jp-rYU">
                         <barButtonItem key="leftBarButtonItem" title="Select" id="PkC-ze-ftv">
-                            <color key="tintColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="deleteCells:" destination="BYZ-38-t0r" id="aXv-Zw-ZUy"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="r49-pU-d4V">
-                            <color key="tintColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <barButtonItem key="rightBarButtonItem" title="Reorder" id="r49-pU-d4V">
                             <connections>
                                 <action selector="reorderCells:" destination="BYZ-38-t0r" id="L7D-L8-3fi"/>
                             </connections>
