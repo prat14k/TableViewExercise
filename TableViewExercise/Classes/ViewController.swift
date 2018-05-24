@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         "Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
                            ]
     
-    
     private var isReorderingEnabled = false
     private var isDeleteEnabled = false
     
@@ -69,25 +68,26 @@ extension ViewController {
     
     @IBAction private func reorderCells(_ sender: UIBarButtonItem) {
         isReorderingEnabled = !tableView.isEditing
+        isDeleteEnabled = false
+        tableView.allowsMultipleSelectionDuringEditing = false
         setSelectBarButton(hidden: isReorderingEnabled)
         sender.title = isReorderingEnabled ? StringLiterals.DisableReorderingText : StringLiterals.EnableReorderingText
         tableView.beginUpdates()
         tableView.isEditing = isReorderingEnabled
-        tableView.reloadData()
         tableView.endUpdates()
     }
     
     @IBAction private func deleteCells(_ sender: UIBarButtonItem) {
         isDeleteEnabled = !tableView.isEditing
+        isReorderingEnabled = false
+        tableView.allowsMultipleSelectionDuringEditing = isDeleteEnabled
         setRight(barButton: isDeleteEnabled ? deleteCellsBarButton : reorderCellsBarButton)
         selectCellsBarButton.title = isDeleteEnabled ? StringLiterals.DisableDeletionText : StringLiterals.EnableSelectionText
         if sender.tag == ButtonTypes.Delete.rawValue {
             deleteSelectedRows()
         }
         tableView.beginUpdates()
-        tableView.allowsMultipleSelectionDuringEditing = isDeleteEnabled
         tableView.isEditing = isDeleteEnabled
-        tableView.reloadData()
         tableView.endUpdates()
     }
     
@@ -101,7 +101,7 @@ extension ViewController {
     }
     
     private func setSelectBarButton(hidden: Bool, animated: Bool = true) {
-        self.navigationItem.setLeftBarButton(hidden ? nil : selectCellsBarButton, animated: animated)
+        navigationItem.setLeftBarButton(hidden ? nil : selectCellsBarButton, animated: animated)
     }
     
     private func deleteSelectedRows() {
@@ -109,6 +109,7 @@ extension ViewController {
         let indexes = selectedRows.map { $0.row }
         tableDataSource.remove(indexes: indexes)
         tableView.deleteRows(at: selectedRows, with: .fade)
+        tableView.reloadData()
     }
     
 }

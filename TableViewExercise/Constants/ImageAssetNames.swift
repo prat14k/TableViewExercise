@@ -9,10 +9,8 @@
 import UIKit
 
 struct ImageAssetNames {
-
     static let BirdsFlying = "BirdsFlying"
     static let MetroCity = "MetroCity"
     static let BlueMatte = "BlueMatte"
     static let GreenThreads = "GreenThreads"
-    
 }

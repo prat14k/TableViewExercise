@@ -11,7 +11,6 @@ import UIKit
 class CustomTableViewCell: UITableViewCell {
 
     static let identifier = "customCellIdentifier"
-    
     @IBOutlet weak private var titleLabel: UILabel!
     
 }
