@@ -13,16 +13,17 @@ class CustomTableViewCell: UITableViewCell {
     static let identifier = "customCellIdentifier"
     
     @IBOutlet weak private var titleLabel: UILabel!
-    @IBOutlet weak private var backgroundImageView: UIImageView!
     
+}
+
+
+extension CustomTableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         let selectionView = UIView()
         selectionView.backgroundColor = UIColor.clear
         selectedBackgroundView = selectionView
-        
     }
     
 }
@@ -32,12 +33,9 @@ class CustomTableViewCell: UITableViewCell {
 extension CustomTableViewCell {
 
     func setup(content: String, for rowNumber: Int) {
-        
         titleLabel.text = content
-        
         let backgroundImageName = rowNumber % 2 == 0 ? ImageAssetNames.BlueMatte : ImageAssetNames.GreenThreads
         backgroundView = UIImageView(image: UIImage(named: backgroundImageName))
-        
     }
 
 }

@@ -10,7 +10,7 @@ import UIKit
 
 
 class ViewController: UIViewController {
-
+    
     private var tableDataSource = [
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
         "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
@@ -21,11 +21,25 @@ class ViewController: UIViewController {
         "Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
                            ]
     
-    private var selectedRows = [IndexPath]()
     
     private var isReorderingEnabled = false
     private var isDeleteEnabled = false
     
+    @IBOutlet private var reorderCellsBarButton: UIBarButtonItem! {
+        didSet {
+            setRight(barButton: reorderCellsBarButton)
+        }
+    }
+    @IBOutlet private var selectCellsBarButton: UIBarButtonItem! {
+        didSet {
+            selectCellsBarButton.tag = ButtonTypes.Select.rawValue
+        }
+    }
+    @IBOutlet private var deleteCellsBarButton: UIBarButtonItem! {
+        didSet {
+            deleteCellsBarButton.tag = ButtonTypes.Delete.rawValue
+        }
+    }
     @IBOutlet weak private var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -36,45 +50,45 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet private var reorderCellsBarButton: UIBarButtonItem!
-    @IBOutlet private var deleteCellsBarButton: UIBarButtonItem!
+}
+
+
+extension ViewController {
+    
+    private enum ButtonTypes: Int {
+        case Delete
+        case Reorder
+        case Select
+    }
     
 }
+
 
 // IBActions
 extension ViewController {
     
     @IBAction private func reorderCells(_ sender: UIBarButtonItem) {
-        
         isReorderingEnabled = !tableView.isEditing
-
-        if isReorderingEnabled {
-            sender.title = "Done"
-            setDeleteBarButton(hidden: true)
-        } else {
-            sender.title = "Reorder"
-            setDeleteBarButton(hidden: false)
-        }
-        
+        setSelectBarButton(hidden: isReorderingEnabled)
+        sender.title = isReorderingEnabled ? StringLiterals.DisableReorderingText : StringLiterals.EnableReorderingText
+        tableView.beginUpdates()
         tableView.isEditing = isReorderingEnabled
+        tableView.reloadData()
+        tableView.endUpdates()
     }
     
     @IBAction private func deleteCells(_ sender: UIBarButtonItem) {
-        
         isDeleteEnabled = !tableView.isEditing
-        tableView.allowsMultipleSelectionDuringEditing = isDeleteEnabled
-        
-        if isDeleteEnabled {
-            sender.title = "Delete"
-            setReorderBarButton(hidden: true)
-        } else {
-            sender.title = "Select"
-            setReorderBarButton(hidden: false)
+        setRight(barButton: isDeleteEnabled ? deleteCellsBarButton : reorderCellsBarButton)
+        selectCellsBarButton.title = isDeleteEnabled ? StringLiterals.DisableDeletionText : StringLiterals.EnableSelectionText
+        if sender.tag == ButtonTypes.Delete.rawValue {
             deleteSelectedRows()
         }
-        
+        tableView.beginUpdates()
+        tableView.allowsMultipleSelectionDuringEditing = isDeleteEnabled
         tableView.isEditing = isDeleteEnabled
-        
+        tableView.reloadData()
+        tableView.endUpdates()
     }
     
 }
@@ -82,35 +96,24 @@ extension ViewController {
 // Custom Helper methods
 extension ViewController {
 
-    private func setReorderBarButton(hidden: Bool) {
-        if hidden == true {
-            self.navigationItem.setRightBarButton(nil, animated: true)
-        } else {
-            self.navigationItem.setRightBarButton(reorderCellsBarButton, animated: true)
-        }
+    private func setRight(barButton: UIBarButtonItem, animated: Bool = true) {
+        navigationItem.setRightBarButtonItems([barButton], animated: animated)
     }
     
-    private func setDeleteBarButton(hidden: Bool) {
-        if hidden == true {
-            self.navigationItem.setLeftBarButton(nil, animated: true)
-        } else {
-            self.navigationItem.setLeftBarButton(deleteCellsBarButton, animated: true)
-        }
+    private func setSelectBarButton(hidden: Bool, animated: Bool = true) {
+        self.navigationItem.setLeftBarButton(hidden ? nil : selectCellsBarButton, animated: animated)
     }
     
     private func deleteSelectedRows() {
+        guard let selectedRows = tableView.indexPathsForSelectedRows else { return }
         let indexes = selectedRows.map { $0.row }
         tableDataSource.remove(indexes: indexes)
-        
         tableView.deleteRows(at: selectedRows, with: .fade)
-        
-        selectedRows.removeAll()
-        tableView.reloadData()
     }
     
 }
 
-
+// pragma - TableView DataSource
 extension ViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -122,12 +125,9 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let customCell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
         customCell.setup(content: tableDataSource[indexPath.row], for : indexPath.row)
-        
         return customCell
-        
     }
     
 }
@@ -135,18 +135,9 @@ extension ViewController: UITableViewDataSource {
 
 // pragma - To Select/Edit/Move TableView Cells
 extension ViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRows.append(indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        selectedRows.delete(element: indexPath)
-    }
-    
+
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         tableDataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-        
         let reloadingIndexPaths = IndexPath.createForNumbers(from: sourceIndexPath.row, to: destinationIndexPath.row)
         DispatchQueue.main.async {
             tableView.reloadRows(at: reloadingIndexPaths, with: .none)
@@ -166,7 +157,7 @@ extension ViewController: UITableViewDelegate {
 extension ViewController {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return tableView.isEditing
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -174,7 +165,7 @@ extension ViewController {
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return isReorderingEnabled ? .none : .delete
+        return .none
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {

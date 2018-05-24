@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,20 +19,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rho-1L-ZfN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rho-1L-ZfN">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customCellIdentifier" rowHeight="120" id="UEA-hV-bMQ" customClass="CustomTableViewCell" customModule="TableViewExercise" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="customCellIdentifier" rowHeight="120" id="UEA-hV-bMQ" customClass="CustomTableViewCell" customModule="TableViewExercise" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UEA-hV-bMQ" id="nYN-PI-gvE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n9f-AI-EE3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="751" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0a4-Tf-67L">
                                                     <rect key="frame" x="15" y="50" width="345" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -40,18 +38,13 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="n9f-AI-EE3" firstAttribute="width" secondItem="nYN-PI-gvE" secondAttribute="width" priority="999" id="CFZ-2f-9EP"/>
-                                                <constraint firstItem="n9f-AI-EE3" firstAttribute="centerX" secondItem="nYN-PI-gvE" secondAttribute="centerX" id="PQK-ig-8pH"/>
                                                 <constraint firstAttribute="bottom" secondItem="0a4-Tf-67L" secondAttribute="bottom" constant="50" id="TZu-PQ-boX"/>
                                                 <constraint firstItem="0a4-Tf-67L" firstAttribute="leading" secondItem="nYN-PI-gvE" secondAttribute="leading" constant="15" id="UCn-1Z-z21"/>
                                                 <constraint firstItem="0a4-Tf-67L" firstAttribute="top" secondItem="nYN-PI-gvE" secondAttribute="top" constant="50" id="dl2-Jv-bDs"/>
-                                                <constraint firstItem="n9f-AI-EE3" firstAttribute="centerY" secondItem="nYN-PI-gvE" secondAttribute="centerY" id="qDJ-t2-YeD"/>
                                                 <constraint firstAttribute="trailing" secondItem="0a4-Tf-67L" secondAttribute="trailing" constant="15" id="qob-Kd-IJa"/>
-                                                <constraint firstItem="n9f-AI-EE3" firstAttribute="height" secondItem="nYN-PI-gvE" secondAttribute="height" priority="999" id="z6F-b9-fDI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="backgroundImageView" destination="n9f-AI-EE3" id="exj-b5-rZ7"/>
                                             <outlet property="titleLabel" destination="0a4-Tf-67L" id="BIO-GU-k2s"/>
                                         </connections>
                                     </tableViewCell>
@@ -70,18 +63,26 @@
                     <navigationItem key="navigationItem" id="md8-Jp-rYU">
                         <barButtonItem key="leftBarButtonItem" title="Select" id="PkC-ze-ftv">
                             <connections>
-                                <action selector="deleteCells:" destination="BYZ-38-t0r" id="aXv-Zw-ZUy"/>
+                                <action selector="deleteCells:" destination="BYZ-38-t0r" id="pX8-XI-uxh"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Reorder" id="r49-pU-d4V">
-                            <connections>
-                                <action selector="reorderCells:" destination="BYZ-38-t0r" id="L7D-L8-3fi"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Reorder" id="r49-pU-d4V">
+                                <connections>
+                                    <action selector="reorderCells:" destination="BYZ-38-t0r" id="L7D-L8-3fi"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Delete" id="PQl-V1-P8A">
+                                <connections>
+                                    <action selector="deleteCells:" destination="BYZ-38-t0r" id="NJS-e2-oDP"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="deleteCellsBarButton" destination="PkC-ze-ftv" id="L9t-Pf-INF"/>
+                        <outlet property="deleteCellsBarButton" destination="PQl-V1-P8A" id="75z-8a-sSj"/>
                         <outlet property="reorderCellsBarButton" destination="r49-pU-d4V" id="Zpl-PQ-Ssm"/>
+                        <outlet property="selectCellsBarButton" destination="PkC-ze-ftv" id="VcF-xz-XtI"/>
                         <outlet property="tableView" destination="rho-1L-ZfN" id="foL-EP-mnI"/>
                     </connections>
                 </viewController>

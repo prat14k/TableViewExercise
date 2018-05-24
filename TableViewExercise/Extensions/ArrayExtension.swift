@@ -16,16 +16,13 @@ extension Array {
     }
 
     mutating func remove(indexes: [Int]) {
-        
         guard count > 0  else { return }
-        
         var newArray = [Element]()
         for index in 0..<count {
             if !indexes.contains(index) {
                 newArray.append(self[index])
             }
         }
-        
         self = newArray
     }
     
