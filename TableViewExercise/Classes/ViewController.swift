@@ -31,12 +31,12 @@ class ViewController: UIViewController {
     }
     @IBOutlet private var selectCellsBarButton: UIBarButtonItem! {
         didSet {
-            selectCellsBarButton.tag = ButtonTypes.Select.rawValue
+            selectCellsBarButton.tag = ButtonTypes.select.rawValue
         }
     }
     @IBOutlet private var deleteCellsBarButton: UIBarButtonItem! {
         didSet {
-            deleteCellsBarButton.tag = ButtonTypes.Delete.rawValue
+            deleteCellsBarButton.tag = ButtonTypes.delete.rawValue
         }
     }
     @IBOutlet weak private var tableView: UITableView! {
@@ -55,9 +55,9 @@ class ViewController: UIViewController {
 extension ViewController {
     
     private enum ButtonTypes: Int {
-        case Delete
-        case Reorder
-        case Select
+        case delete
+        case reorder
+        case select
     }
     
 }
@@ -83,7 +83,7 @@ extension ViewController {
         tableView.allowsMultipleSelectionDuringEditing = isDeleteEnabled
         setRight(barButton: isDeleteEnabled ? deleteCellsBarButton : reorderCellsBarButton)
         selectCellsBarButton.title = isDeleteEnabled ? StringLiterals.DisableDeletionText : StringLiterals.EnableSelectionText
-        if sender.tag == ButtonTypes.Delete.rawValue {
+        if sender.tag == ButtonTypes.delete.rawValue {
             deleteSelectedRows()
         }
         tableView.beginUpdates()
