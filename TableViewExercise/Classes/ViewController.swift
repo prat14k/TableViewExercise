@@ -46,6 +46,7 @@ extension ViewController {
         let isEditingEnabled = !tableView.isEditing
         sender.title = isEditingEnabled ? StringLiterals.DisableEditingText : StringLiterals.EnableEditingText
         setDeleteBarButton(hidden: !isEditingEnabled)
+        deleteCellsBarButton.isEnabled = false
         tableView.setEditing(isEditingEnabled, animated: true)
     }
     @IBAction private func deleteCells(_ sender: UIBarButtonItem) {
@@ -69,6 +70,7 @@ extension ViewController {
         tableDataSource.remove(indexes: indexes)
         tableView.deleteRows(at: selectedRows, with: .fade)
         tableView.reloadData()
+        editTableBarButton.isEnabled = tableDataSource.count != 0
     }
     private func recreateSelected(rows: [IndexPath]) {
         for indexPath in rows {
@@ -89,7 +91,7 @@ extension ViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let customCell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
-        customCell.setup(content: tableDataSource[indexPath.row], for : indexPath.row)
+        customCell.setup(content: tableDataSource[indexPath.row], for: indexPath.row)
         return customCell
     }
     
@@ -99,6 +101,13 @@ extension ViewController: UITableViewDataSource {
 // pragma - To Select/Edit/Move TableView Cells
 extension ViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        deleteCellsBarButton.isEnabled = true
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard tableView.indexPathsForSelectedRows == nil  else { return }
+        deleteCellsBarButton.isEnabled = false
+    }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         tableDataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
         let reloadingIndexPaths = IndexPath.createForNumbers(from: sourceIndexPath.row, to: destinationIndexPath.row)
@@ -109,10 +118,9 @@ extension ViewController: UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableDataSource.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .none)
-        }
+        guard editingStyle == .delete  else { return }
+        tableDataSource.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .none)
     }
     
 }
@@ -124,7 +132,7 @@ extension ViewController {
         return true
     }
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return tableDataSource.count > 1
     }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
