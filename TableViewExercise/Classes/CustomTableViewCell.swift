@@ -11,15 +11,13 @@ import UIKit
 class CustomTableViewCell: UITableViewCell {
 
     static let identifier = "customCellIdentifier"
+    
     @IBOutlet weak private var titleLabel: UILabel!
     
-}
-
-
-extension CustomTableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
         let selectionView = UIView()
         selectionView.backgroundColor = UIColor.clear
         selectedBackgroundView = selectionView
@@ -33,7 +31,7 @@ extension CustomTableViewCell {
 
     func setup(content: String, for rowNumber: Int) {
         titleLabel.text = content
-        let backgroundImageName = rowNumber % 2 == 0 ? ImageAssetNames.BlueMatte : ImageAssetNames.GreenThreads
+        let backgroundImageName = rowNumber % 2 == 0 ? ImageAssets.Grass : ImageAssets.Sky
         backgroundView = UIImageView(image: UIImage(named: backgroundImageName))
     }
 
